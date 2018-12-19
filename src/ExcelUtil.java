@@ -1,6 +1,3 @@
-/**
- * 
- */
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,17 +11,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  
-/**
- *
- * Description: Excel操作
- * 
- * CreateTime: 2017年12月11日  下午3:08:09
- *
- * Change History:
- *
- *        Date             CR Number              Name              Description of change
- *
- */
+
 public class ExcelUtil {
  
 	private static final String EXCEL_XLS = "xls";  
@@ -75,6 +62,7 @@ public class ExcelUtil {
             //Workbook workbook = WorkbookFactory.create(is); // 这种方式 Excel2003/2007/2010都是可以处理的  
   
             int sheetCount = workbook.getNumberOfSheets(); // Sheet的数量  
+            System.out.println("sheetCount:"+sheetCount);
             /** 
              * 设置当前excel中sheet的下标：0开始 
              */  
@@ -82,15 +70,30 @@ public class ExcelUtil {
            // Sheet sheet = workbook.getSheetAt(2);   // 遍历第三个Sheet  
             
             //获取总行数
-          System.out.println(sheet.getLastRowNum());
-            
+           System.out.println("Row num:"+sheet.getLastRowNum());
+           //获取总列数
+           System.out.println("Column num:"+sheet.getRow(0).getPhysicalNumberOfCells());
+           
+           for(int i=1;i<18;i++) {
+        	   Row oneRow = sheet.getRow(i);
+        	  // for(int j=1;j<)
+           }
+           
+           for(Row oneRow:sheet) {
+        	   System.out.println("This is the "+oneRow.getRowNum()+" row");
+        	   for(Cell oneCell:oneRow) {
+        		   System.out.println(oneCell.getRowIndex()+""+oneCell.getColumnIndex()+oneCell);
+        	   }
+        	   System.out.println();
+           }
+           
             // 为跳过第一行目录设置count  
             int count = 0;
             for (Row row : sheet) {
             	try {
                     
                     //获取总列数(空格的不计算)
-                    int columnTotalNum = row.getPhysicalNumberOfCells();
+           /*         int columnTotalNum = row.getPhysicalNumberOfCells();
                     System.out.println("总列数：" + columnTotalNum);
                     
                     System.out.println("最大列数：" + row.getLastCellNum());
@@ -98,7 +101,7 @@ public class ExcelUtil {
                     //for循环的，不扫描空格的列
                     for (Cell cell : row) { 
                     	System.out.println(cell);
-                   }
+                   }*/
          /*           int end = row.getLastCellNum();
                     for (int i = 0; i < end; i++) {
                     	Cell cell = row.getCell(i);
